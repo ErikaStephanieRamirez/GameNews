@@ -1,8 +1,6 @@
-package com.ramirez.gamenews.Datos;
+package com.ramirez.gamenews.repository.modelos;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 
 public class Users {
@@ -14,7 +12,7 @@ public class Users {
     @SerializedName("__v")
     private int version;
     //@SerializedName("favoriteNews")
-    //private List<News> favouriteNews;
+    //private List<New> favouriteNews;
     //extras
     private String user;
     private String password;
@@ -52,11 +50,11 @@ public class Users {
         this.version = version;
     }
 
-    /*public List<News> getFavouriteNews() {
+    /*public List<New> getFavouriteNews() {
         return favouriteNews;
     }
 
-    public void setFavouriteNews(List<News> favouriteNews) {
+    public void setFavouriteNews(List<New> favouriteNews) {
         this.favouriteNews = favouriteNews;
     }*/
 

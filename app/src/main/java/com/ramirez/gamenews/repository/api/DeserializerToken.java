@@ -1,4 +1,4 @@
-package com.ramirez.gamenews.API;
+package com.ramirez.gamenews.repository.api;
 
 import java.lang.reflect.Type;
 import com.google.gson.JsonDeserializationContext;

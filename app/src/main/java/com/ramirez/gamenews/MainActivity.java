@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ramirez.gamenews.API.GNAPI;
-import com.ramirez.gamenews.API.DeserializerToken;
-import com.ramirez.gamenews.Datos.Users;
+import com.ramirez.gamenews.repository.api.GNAPI;
+import com.ramirez.gamenews.repository.api.DeserializerToken;
+import com.ramirez.gamenews.repository.modelos.Users;
 
 import java.net.SocketTimeoutException;
 
@@ -28,6 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
+
 
     EditText username, password;
     Button login;
@@ -41,46 +42,58 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        login = findViewById(R.id.login);
-        rel1 = findViewById(R.id.rel1);
-        username = findViewById(R.id.user);
-        password = findViewById(R.id.contra);  //inicializa las variables
 
-        handler.postDelayed(runnable, 2000); //el tiempo que se tardara para que el relative layout sea visible
+        SharedPreferences sharedPreferences = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("Token")) {
+            startActivity(new Intent(this,PrincipalActivity.class));
+            finish();
+        }else {
+            setContentView(R.layout.activity_main);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Gson gson = new GsonBuilder().registerTypeAdapter(String.class,new DeserializerToken()).create();
-                Retrofit.Builder builder = new Retrofit.Builder().baseUrl(GNAPI.BASEURL).addConverterFactory(GsonConverterFactory.create(gson));
-                Retrofit retrofit = builder.build();
-                GNAPI gNewsAPI = retrofit.create(GNAPI.class); //revisa en la api
-                final Users users = new Users(username.getText().toString(),password.getText().toString()); //obtiene los valores de los usuarios de la api y los convierte a string
-                Call<String> call = gNewsAPI.login(users.getUser(),users.getPassword()); //a traves de la llamada obtiene las contras y usuarios de la api
-                call.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if (response.isSuccessful() && !response.body().equals("") && !username.getText().equals("") && !password.getText().equals("")) {
-                            sharedpreferences(response.body());
-                            Toast.makeText(MainActivity.this,response.body(), Toast.LENGTH_SHORT).show();
-                            startativity();
-                        } else {
-                            Toast.makeText(MainActivity.this, "no response", Toast.LENGTH_SHORT).show();
+
+            login = findViewById(R.id.login);
+            rel1 = findViewById(R.id.rel1);
+            username = findViewById(R.id.user);
+            password = findViewById(R.id.contra);  //inicializa las variables
+
+            handler.postDelayed(runnable, 2000); //el tiempo que se tardara para que el relative layout sea visible
+
+            login.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    Gson gson = new GsonBuilder().registerTypeAdapter(String.class, new DeserializerToken()).create();
+                    Retrofit.Builder builder = new Retrofit.Builder().baseUrl(GNAPI.BASEURL).addConverterFactory(GsonConverterFactory.create(gson));
+                    Retrofit retrofit = builder.build();
+                    GNAPI gNewsAPI = retrofit.create(GNAPI.class); //revisa en la api
+                    final Users users = new Users(username.getText().toString(), password.getText().toString()); //obtiene los valores de los usuarios de la api y los convierte a string
+                    Call<String> call = gNewsAPI.login(users.getUser(), users.getPassword()); //a traves de la llamada obtiene las contras y usuarios de la api
+                    call.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if (response.isSuccessful() && !response.body().equals("") && !username.getText().equals("") && !password.getText().equals("")) {
+                                sharedpreferences(response.body());
+                                Toast.makeText(MainActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+                                startativity();
+                            } else {
+                                Toast.makeText(MainActivity.this, "no response", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        if (t instanceof SocketTimeoutException) {
-                            Toast.makeText(MainActivity.this, "false", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            if (t instanceof SocketTimeoutException) {
+                                Toast.makeText(MainActivity.this, "false", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
     }
 
     private void startativity(){
@@ -89,10 +102,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void sharedpreferences(String token) {
+    private void sharedpreferences(String token){
         SharedPreferences sharedPreferences = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Token", token);
-        editor.apply(); //funcion que prepara para enviar token a otras activitis en este caso a principalActivity
+        editor.putString("Token",token);
+        //asyncrono, en backgorund
+        editor.apply();
     }
 }

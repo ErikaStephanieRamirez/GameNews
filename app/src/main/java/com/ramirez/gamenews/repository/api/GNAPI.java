@@ -1,5 +1,7 @@
-package com.ramirez.gamenews.API;
+package com.ramirez.gamenews.repository.api;
 
+
+import com.ramirez.gamenews.repository.modelos.New;
 
 import java.util.List;
 
@@ -14,8 +16,8 @@ public interface GNAPI {
 
     String BASEURL ="http://gamenewsuca.herokuapp.com";
 
-    //@GET("/news")
-    //Call<List<News>> getNews(@Header("Authorization") String autorizazion);
+    @GET("/news")
+    Call<List<New>> getNews(@Header("Authorization") String autorizazion);
 
     @FormUrlEncoded
     @POST("/login")

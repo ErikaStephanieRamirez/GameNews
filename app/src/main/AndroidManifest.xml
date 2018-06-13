@@ -26,17 +26,18 @@
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Tabs.LegueActivity"
+            android:name=".tabs.LegueActivity"
             android:label="@string/title_activity_tab_legue"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Tabs.DotaActivity"
+            android:name=".tabs.DotaActivity"
             android:label="@string/title_activity_dota"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Tabs.CsGoActivity"
+            android:name=".tabs.CsGoActivity"
             android:label="@string/title_activity_cs_go"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".MostrarNewsActivity"></activity>
     </application>
 
 </manifest>
