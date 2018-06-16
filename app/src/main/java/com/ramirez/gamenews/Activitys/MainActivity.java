@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Token",token);
-        //asyncrono, en backgorund
         editor.apply();
     }
 }

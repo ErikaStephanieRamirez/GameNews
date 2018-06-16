@@ -7,13 +7,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ramirez.gamenews.R;
-import com.ramirez.gamenews.repository.modelos.New;
+import com.ramirez.gamenews.repository.modelos.Players;
 import com.squareup.picasso.Picasso;
 
-public class InfoActivity extends AppCompatActivity {
+public class PlayerInfoActivity extends AppCompatActivity {
+
     private ImageView imagen;
-    private TextView titulo,body,game,fecha;
-    private New news;
+    private TextView nombre,juego,biografia;
+    private Players players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,28 +26,23 @@ public class InfoActivity extends AppCompatActivity {
 
     private void initialize(){
         imagen = findViewById(R.id.Imagen_Info);
-        titulo = findViewById(R.id.Titulo_Info);
-        body = findViewById(R.id.Body_Info);
-        game = findViewById(R.id.Game_Info);
-        fecha = findViewById(R.id.Fecha_Info);
+        nombre= findViewById(R.id.Titulo_Info);
+        biografia = findViewById(R.id.Body_Info);
+         juego = findViewById(R.id.Game_Info);
     }
 
     private void InformationNews(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        news = (New) bundle.getSerializable("NewsInformation");
+        players = (Players) bundle.getSerializable("PlayersInformation");
 
-        if (!(news.getCoverImage() == null)) {
-            Picasso.with(getApplicationContext()).load(news.getCoverImage()).error(R.drawable.rosa).into(imagen);
+        if (!(players.getAvatar() == null)) {
+            Picasso.with(getApplicationContext()).load(players.getAvatar()).error(R.drawable.rosa).into(imagen);
         } else {
             Picasso.with(getApplicationContext()).load(R.drawable.rosa).error(R.drawable.rosa).into(imagen);
         }
-
-        titulo.setText(news.getTitle());
-        body.setText(news.getBody());
-        game.setText(news.getGame());
-        fecha.setText(news.getCreate_date());
-
+        nombre.setText(players.getName());
+        biografia.setText(players.getBiografia());
+        juego.setText(players.getGame());
     }
-
 }

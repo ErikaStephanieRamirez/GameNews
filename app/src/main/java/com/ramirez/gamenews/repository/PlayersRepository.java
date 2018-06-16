@@ -28,20 +28,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PlayersRepository {
 
     private PlayersDao pDao;
-    private LiveData<List<Players>> pPlayers;
+    private LiveData<List<Players>> lolplayers;
+    private LiveData<List<Players>> overwatchplayers;
+    private LiveData<List<Players>> csgoplayers;
     private String token;
 
     public PlayersRepository(Application application) {
         GamesNewsDatabase db = GamesNewsDatabase.getDatabase(application.getApplicationContext());
         pDao = db.playersDao();
-        pPlayers = pDao.getPlayersGame("lol");
+        lolplayers = pDao.getPlayersGame("lol");
+        overwatchplayers = pDao.getPlayersGame("overwatch");
+        csgoplayers = pDao.getPlayersGame("csgo");
         SharedPreferences sharedPreferences = application.getSharedPreferences("Login", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("Token", "");
+
     }
 
-    public LiveData<List<Players>> getPlayersGame() {
+    public LiveData<List<Players>> getLolplayersGame() {
         getPlayersAPI();
-        return pPlayers;
+        return lolplayers;
+    }
+
+    public LiveData<List<Players>> getOverwatchplayers() {
+        getPlayersAPI();
+        return overwatchplayers;
+    }
+    public LiveData<List<Players>> getCsgoplayers() {
+        getPlayersAPI();
+        return csgoplayers;
     }
 
     public void insert(Players jugador) {

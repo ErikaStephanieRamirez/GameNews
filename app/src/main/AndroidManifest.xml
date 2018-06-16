@@ -25,13 +25,8 @@
             android:name=".Activitys.PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme" />
-
         <activity android:name=".Activitys.InfoActivity" />
-
-        <activity
-            android:name=".Activitys.JuegosActivity"
-            android:label="@string/title_activity_juegos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activitys.PlayerInfoActivity"></activity>
     </application>
 
 </manifest>

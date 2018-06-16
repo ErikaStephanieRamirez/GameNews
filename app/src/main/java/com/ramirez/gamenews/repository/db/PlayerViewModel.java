@@ -18,16 +18,25 @@ import java.util.List;
 
 public class PlayerViewModel extends AndroidViewModel {
     private PlayersRepository repository;
-    private LiveData<List<Players>> pAllNews;
+    private LiveData<List<Players>> lolPlayer;
+    private LiveData<List<Players>> overwatchPlayer;
+    private LiveData<List<Players>> csgoPlayer;
 
     public PlayerViewModel(@NonNull Application application) {
         super(application);
         repository = new PlayersRepository(application);
-        pAllNews = repository.getPlayersGame();
-        //repository.insert();
+        lolPlayer = repository.getLolplayersGame();
+        overwatchPlayer = repository.getOverwatchplayers();
+        csgoPlayer = repository.getCsgoplayers();
     }
 
-    public LiveData<List<Players>> getAllPlayers() {
-        return pAllNews;
+    public LiveData<List<Players>> getLolPlayers() {
+        return lolPlayer;
+    }
+    public LiveData<List<Players>> getOverwatchPlayes() {
+        return overwatchPlayer;
+    }
+    public LiveData<List<Players>> getCsgoPlayer() {
+        return csgoPlayer;
     }
 }

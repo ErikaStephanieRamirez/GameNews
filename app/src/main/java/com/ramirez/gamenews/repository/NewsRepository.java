@@ -13,6 +13,7 @@ import com.ramirez.gamenews.repository.api.GNAPI;
 import com.ramirez.gamenews.repository.db.GamesNewsDatabase;
 import com.ramirez.gamenews.repository.db.NewsDao;
 import com.ramirez.gamenews.repository.modelos.New;
+import com.ramirez.gamenews.repository.modelos.Players;
 
 import java.util.List;
 
@@ -30,14 +31,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NewsRepository {
 
     private NewsDao mDao;
+    private LiveData<List<New>> lolnews;
+    private LiveData<List<New>> overwachesnews;
+    private LiveData<List<New>> csgonews;
     private LiveData<List<New>> mNews;
-    private GNAPI gamesAPI;
     private String token;
 
     public NewsRepository(Application application) {
        GamesNewsDatabase db = GamesNewsDatabase.getDatabase(application.getApplicationContext());
         mDao = db.newsDao();
         mNews = mDao.getAllNews();
+        lolnews = mDao.getNewsByGame("lol");
+        overwachesnews = mDao.getNewsByGame("overwatch");
+        csgonews = mDao.getNewsByGame("csgo");
         SharedPreferences sharedPreferences = application.getSharedPreferences("Login", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("Token", "");
     }
@@ -45,6 +51,20 @@ public class NewsRepository {
     public LiveData<List<New>> getAllNews() {
         getNewsAPI();
         return mNews;
+    }
+
+    public LiveData<List<New>> getLolnewsGame() {
+        getNewsAPI();
+        return lolnews;
+    }
+
+    public LiveData<List<New>> getOverwatchnewsGame() {
+        getNewsAPI();
+        return overwachesnews;
+    }
+    public LiveData<List<New>> getCsgonewsGame() {
+        getNewsAPI();
+        return csgonews;
     }
 
     /**

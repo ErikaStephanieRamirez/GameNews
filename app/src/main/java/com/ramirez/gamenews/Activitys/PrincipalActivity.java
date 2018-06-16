@@ -2,9 +2,7 @@ package com.ramirez.gamenews.Activitys;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,31 +17,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.ramirez.gamenews.Fragments.TabsFragment;
 import com.ramirez.gamenews.R;
 import com.ramirez.gamenews.adapter.AdapterNews;
 import com.ramirez.gamenews.repository.db.NewsViewModel;
 import com.ramirez.gamenews.repository.modelos.New;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout mdrawerLayout;
-    private ActionBarDrawerToggle mactionBarDrawerToggle;
-    private NavigationView navigationView;
-    private List<New> list2;
-    private String token;
-    //private List<New> ListNews;
+
 
     private RecyclerView recyclerView;
-    private AdapterNews adapter;
-    private ArrayList<New> list;
 
     private NewsViewModel newsViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,26 +98,38 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
 
-        Fragment f;
-        f= null;
+
+        Fragment fragment = null;
 
         boolean estado =false;
 
         int id = item.getItemId();
 
         if (id == R.id.aNews) {
+
             Intent nueva = new Intent(getApplicationContext(), PrincipalActivity.class);
             startActivity(nueva);
-        } else if (id == R.id.legue) {
-            Intent nueva = new Intent(getApplicationContext(), JuegosActivity.class);
-            startActivity(nueva);
-            Toast.makeText(this,"Hola", Toast.LENGTH_SHORT).show();
+
+        }
+        else if (id == R.id.lol) {
+
+            fragment = TabsFragment.newInstance(item.getTitle().toString());
+            estado = true;
+
         } else if (id == R.id.dota) {
+
+            fragment = TabsFragment.newInstance(item.getTitle().toString());
+            estado = true;
 
         } else if (id == R.id.csgo) {
 
-        }
+            fragment = TabsFragment.newInstance(item.getTitle().toString());
+            estado = true;
 
+        }
+        if(estado){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -160,14 +163,4 @@ public class PrincipalActivity extends AppCompatActivity
         });
     }
 
-    private void sharedpreferences() {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
-        if (!sharedPreferences.contains("Token")) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            token = sharedPreferences.getString("Token", "");
-        }
-    }
 }

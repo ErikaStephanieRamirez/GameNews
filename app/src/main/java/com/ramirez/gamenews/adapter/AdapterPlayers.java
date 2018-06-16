@@ -1,6 +1,8 @@
 package com.ramirez.gamenews.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ramirez.gamenews.Activitys.PlayerInfoActivity;
 import com.ramirez.gamenews.R;
-import com.ramirez.gamenews.repository.modelos.New;
 import com.ramirez.gamenews.repository.modelos.Players;
 import com.squareup.picasso.Picasso;
 
@@ -62,6 +64,17 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.PlayersV
             holder.name.setText(players.getName());
             holder.bio.setText(players.getBiografia());
 
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), PlayerInfoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("PlayersInformation",players);
+                    intent.putExtra(Intent.EXTRA_TEXT,String.valueOf(position));
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
             if (!(players.getAvatar() == null)) {
                 Picasso.with(context).load(players.getAvatar()).error(R.drawable.rosa).into(holder.imagen);
             } else {
