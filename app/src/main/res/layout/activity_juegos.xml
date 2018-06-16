@@ -20,5 +20,4 @@
         android:id="@+id/recycleview_players"
         android:scrollbars="vertical"/>
 
-
 </android.support.design.widget.CoordinatorLayout>

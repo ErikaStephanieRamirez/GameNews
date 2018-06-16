@@ -126,7 +126,12 @@ public class PrincipalActivity extends AppCompatActivity
             fragment = TabsFragment.newInstance(item.getTitle().toString());
             estado = true;
 
+        }else if (id == R.id.settings) {
+            Intent nueva = new Intent(getApplicationContext(), LogoutActivity.class);
+            startActivity(nueva);
         }
+
+
         if(estado){
             getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment).commit();
         }

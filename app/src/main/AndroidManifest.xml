@@ -26,7 +26,8 @@
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme" />
         <activity android:name=".Activitys.InfoActivity" />
-        <activity android:name=".Activitys.PlayerInfoActivity"></activity>
+        <activity android:name=".Activitys.PlayerInfoActivity" />
+        <activity android:name=".Activitys.LogoutActivity"></activity>
     </application>
 
 </manifest>

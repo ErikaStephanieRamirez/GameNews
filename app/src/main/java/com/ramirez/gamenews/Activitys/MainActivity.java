@@ -78,17 +78,17 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(Call<String> call, Response<String> response) {
                             if (response.isSuccessful() && !response.body().equals("") && !username.getText().equals("") && !password.getText().equals("")) {
                                 sharedpreferences(response.body());
-                                Toast.makeText(MainActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Sesion iniciada.", Toast.LENGTH_SHORT).show();
                                 startativity();
                             } else {
-                                Toast.makeText(MainActivity.this, "no response", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Datos erroneos", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             if (t instanceof SocketTimeoutException) {
-                                Toast.makeText(MainActivity.this, "false", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Imposible iniciar sesion", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
