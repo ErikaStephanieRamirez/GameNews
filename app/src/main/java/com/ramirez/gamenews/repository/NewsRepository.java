@@ -23,8 +23,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- *  fdfgd fjh gfjgfghf fhf j fgf ff
- * Created by kEVIN on 8/6/2018.
+ *
+ * Created by Erika on 8/6/2018.
  */
 
 public class NewsRepository {
@@ -35,7 +35,7 @@ public class NewsRepository {
     private String token;
 
     public NewsRepository(Application application) {
-        GamesNewsDatabase db = GamesNewsDatabase.getDatabase(application.getApplicationContext());
+       GamesNewsDatabase db = GamesNewsDatabase.getDatabase(application.getApplicationContext());
         mDao = db.newsDao();
         mNews = mDao.getAllNews();
         SharedPreferences sharedPreferences = application.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -51,8 +51,13 @@ public class NewsRepository {
      *  hfvgfcvn
      * @param noticia ncfgncbn
      */
+
     public void insert(New noticia) {
-        new insertAsyncTask(mDao).execute(noticia);
+          new insertAsyncTask(mDao).execute(noticia);
+    }
+
+    public void insert(List<New> noticias) {
+        new insertAsyncTaskM(mDao).execute(noticias);
     }
 
 
@@ -72,9 +77,7 @@ public class NewsRepository {
             public void onResponse(Call<List<New>> call, Response<List<New>> response) {
                 if (response.isSuccessful()) {
                     List<New> news = response.body();
-                    for (New notica : news) {
-                        insert(notica);
-                    }
+                    insert(news);
                 }
             }
 
@@ -96,9 +99,27 @@ public class NewsRepository {
 
         @Override
         protected Void doInBackground(final New... params) {
-            mAsyncTaskDao.insert(params[0]);
+            try {
+                mAsyncTaskDao.insert(params[0]);
+            }catch (Throwable e){
+                e.printStackTrace();
+            }
             return null;
         }
     }
 
+    private static class insertAsyncTaskM extends AsyncTask<List<New>, Void, Void> {
+
+        private NewsDao mAsyncTaskDao;
+
+        insertAsyncTaskM(NewsDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(List<New>[] lists) {
+            mAsyncTaskDao.insert(lists[0]);
+            return null;
+        }
+    }
 }

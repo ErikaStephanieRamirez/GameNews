@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,22 +22,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PrincipalActivity"
+            android:name=".Activitys.PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".Activitys.InfoActivity" />
+
         <activity
-            android:name=".tabs.LegueActivity"
-            android:label="@string/title_activity_tab_legue"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".tabs.DotaActivity"
-            android:label="@string/title_activity_dota"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".tabs.CsGoActivity"
-            android:label="@string/title_activity_cs_go"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".MostrarNewsActivity"></activity>
+            android:name=".Activitys.JuegosActivity"
+            android:label="@string/title_activity_juegos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

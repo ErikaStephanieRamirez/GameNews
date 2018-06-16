@@ -6,15 +6,17 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.ramirez.gamenews.repository.modelos.New;
+import com.ramirez.gamenews.repository.modelos.Players;
 
 /**
- * Created by kEVIN on 8/6/2018.
+ * Created by Erika on 8/6/2018.
  */
 
-@Database( entities = {New.class}, version = 1)
+@Database( entities = {New.class, Players.class}, version = 1)
 public abstract class GamesNewsDatabase extends RoomDatabase {
 
     public abstract NewsDao newsDao();
+    public abstract PlayersDao playersDao();
 
     private static GamesNewsDatabase INSTANCE;
 

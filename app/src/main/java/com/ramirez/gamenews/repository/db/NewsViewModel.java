@@ -1,4 +1,4 @@
-package com.ramirez.gamenews;
+package com.ramirez.gamenews.repository.db;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -11,7 +11,7 @@ import com.ramirez.gamenews.repository.modelos.New;
 import java.util.List;
 
 /**
- * Created by kEVIN on 8/6/2018.
+ * Created by Erika on 8/6/2018.
  */
 
 public class NewsViewModel extends AndroidViewModel {

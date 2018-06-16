@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.ramirez.gamenews.repository.modelos.New;
+import com.ramirez.gamenews.repository.modelos.Players;
 
 import java.util.List;
 
@@ -15,17 +15,14 @@ import java.util.List;
  */
 
 @Dao
-public interface NewsDao  {
+public interface PlayersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(New noticia);
+    void insert(Players player);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<New> noticias);
+    void insert(List<Players> players);
 
-    @Query("SELECT * FROM new ORDER BY create_date DESC")
-    LiveData<List<New>> getAllNews();
-
-    @Query("SELECT * FROM new WHERE game = :game ORDER BY create_date DESC")
-    LiveData<List<New>> getNewsByGame(String game);
+    @Query("SELECT * FROM players WHERE game = :game")
+    LiveData<List<Players>> getPlayersGame(String game);
 }

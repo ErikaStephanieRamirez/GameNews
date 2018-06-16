@@ -1,4 +1,4 @@
-package com.ramirez.gamenews;
+package com.ramirez.gamenews.Activitys;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ramirez.gamenews.R;
 import com.ramirez.gamenews.repository.api.GNAPI;
 import com.ramirez.gamenews.repository.api.DeserializerToken;
 import com.ramirez.gamenews.repository.modelos.Users;

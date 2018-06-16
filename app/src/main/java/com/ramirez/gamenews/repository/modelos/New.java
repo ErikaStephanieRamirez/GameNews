@@ -20,6 +20,7 @@ public class New implements Serializable,Comparable<New>{
 
     private String title;
     private String coverImage;
+    @SerializedName("created_date")
     private String create_date;
     private String description;
     private String body;

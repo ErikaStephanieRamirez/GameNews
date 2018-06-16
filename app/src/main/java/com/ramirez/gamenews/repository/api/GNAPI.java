@@ -2,6 +2,7 @@ package com.ramirez.gamenews.repository.api;
 
 
 import com.ramirez.gamenews.repository.modelos.New;
+import com.ramirez.gamenews.repository.modelos.Players;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface GNAPI {
     @FormUrlEncoded
     @POST("/login")
     Call<String> login(@Field("user") String username, @Field("password") String password);
+
+    @GET("/players")
+    Call<List<Players>> getPlayers(@Header("Authorization") String authorization);
 }
